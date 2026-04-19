@@ -8,25 +8,29 @@ Tài liệu này mô tả quy ước đặt `Test Case ID` để tránh trùng l
 - Nhìn vào ID biết ngay test thuộc module nào.
 - Dễ mapping với report/test case Excel.
 
-## 2) Format chuẩn
+## 2) Format chuẩn (đảm bảo duy nhất toàn project)
 
 ```text
-TC_<module>_<number>
+TC_<layer>_<module>_<number>
 ```
 
 Trong đó:
 
+- `<layer>`: `controller` | `service` | `middleware` | `util`
 - `<module>`: tên module/controller viết theo camel/lower style (không dấu, không khoảng trắng)
 - `<number>`: số thứ tự 3 chữ số, bắt đầu từ `001`
 
 ## 3) Ví dụ đang áp dụng
 
-- `TC_addressUser_001`
-- `TC_allcode_001`
-- `TC_comment_001`
-- `TC_interaction_001`
-- `TC_message_001`
-- `TC_product_001`
+- `TC_controller_addressUser_001`
+- `TC_controller_allcode_001`
+- `TC_controller_comment_001`
+- `TC_controller_interaction_001`
+- `TC_controller_message_001`
+- `TC_controller_product_001`
+- `TC_service_blog_001`
+
+> Lý do: nếu chỉ dùng `TC_<module>_<number>`, khi có cả test controller và service cùng module sẽ bị trùng ID (ví dụ `receipt`).
 
 ## 4) Quy tắc đánh số
 
@@ -44,8 +48,8 @@ Mỗi test case phải có ID ở cả 2 vị trí:
 Ví dụ:
 
 ```js
-// TC_addressUser_001: Kiểm tra tạo địa chỉ người dùng thành công.
-test('TC_addressUser_001 - createNewAddressUser should return service data', async () => {
+// TC_controller_addressUser_001: Kiểm tra tạo địa chỉ người dùng thành công.
+test('TC_controller_addressUser_001 - createNewAddressUser should return service data', async () => {
   // test logic
 });
 ```
@@ -53,12 +57,13 @@ test('TC_addressUser_001 - createNewAddressUser should return service data', asy
 ## 6) Quy tắc cho test lỗi (error case)
 
 - Có thể dùng cùng ID chính và thêm hậu tố mô tả trong tên test.
-- Ví dụ: `TC_product_001_ERR` (nếu team muốn tách rõ happy/error).
+- Ví dụ: `TC_controller_product_001_ERR` (nếu team muốn tách rõ happy/error).
 - Nếu không dùng hậu tố, tạo ID mới riêng cho error case cũng được, miễn nhất quán trong file.
 
 ## 7) Checklist nhanh trước khi commit
 
-- [ ] ID đúng format `TC_<module>_<number>`
+- [ ] ID đúng format `TC_<layer>_<module>_<number>`
 - [ ] Không trùng ID trong cùng file
+- [ ] Không trùng ID giữa các layer khác nhau (controller/service/...)
 - [ ] Có ID ở comment và tên test
 - [ ] Số thứ tự liên tục, dễ theo dõi
