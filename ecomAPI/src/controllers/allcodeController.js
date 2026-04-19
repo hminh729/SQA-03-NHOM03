@@ -1,5 +1,23 @@
 import allcodeService from '../services/allcodeService';
 
+/**
+ * Allcode controller layer.
+ *
+ * Purpose:
+ * - Receive requests related to reusable code tables.
+ * - Forward body/query values to the matching service method.
+ * - Return a consistent JSON response for the client.
+ *
+ * Error handling:
+ * - Every handler catches unexpected errors.
+ * - Failures are converted to a generic server error payload.
+ *
+ * Edge cases handled by the service layer:
+ * - Missing required parameters.
+ * - Duplicate code values.
+ * - Non-existent records for update/delete/detail operations.
+ */
+
 let handleCreateNewAllCode = async (req, res) => {
     try {
         let data = await allcodeService.handleCreateNewAllCode(req.body);
@@ -12,6 +30,8 @@ let handleCreateNewAllCode = async (req, res) => {
         })
     }
 }
+
+// Return all allcode records filtered by type.
 let getAllCodeService = async (req, res) => {
     try {
         let data = await allcodeService.getAllCodeService(req.query.type);
@@ -24,6 +44,8 @@ let getAllCodeService = async (req, res) => {
         })
     }
 }
+
+// Return all blog categories and attach post count per category.
 let getAllCategoryBlog = async (req, res) => {
     try {
         let data = await allcodeService.getAllCategoryBlog(req.query.type);
@@ -36,6 +58,8 @@ let getAllCategoryBlog = async (req, res) => {
         })
     }
 }
+
+// Update an existing allcode record.
 let handleUpdateAllCode = async (req, res) => {
     try {
         let data = await allcodeService.handleUpdateAllCode(req.body);
@@ -48,6 +72,8 @@ let handleUpdateAllCode = async (req, res) => {
         })
     }
 }
+
+// Return a single allcode record by id.
 let getDetailAllCodeById = async (req, res) => {
     try {
         let data = await allcodeService.getDetailAllCodeById(req.query.id);
@@ -60,6 +86,8 @@ let getDetailAllCodeById = async (req, res) => {
         })
     }
 }
+
+// Delete an allcode record by id.
 let handleDeleteAllCode = async (req, res) => {
     try {
         let data = await allcodeService.handleDeleteAllCode(req.body.id);
@@ -72,6 +100,8 @@ let handleDeleteAllCode = async (req, res) => {
         })
     }
 }
+
+// Return paginated allcode records with optional keyword filtering.
 let getListAllCodeService = async (req, res) => {
     try {
         let data = await allcodeService.getListAllCodeService(req.query);
