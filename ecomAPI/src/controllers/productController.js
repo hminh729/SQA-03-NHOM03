@@ -1,5 +1,22 @@
 import productService from '../services/productService';
 
+/**
+ * Product controller layer.
+ *
+ * Purpose:
+ * - Receive HTTP requests from routes.
+ * - Read data from req.body / req.query.
+ * - Call the corresponding product service.
+ * - Return a unified JSON response.
+ *
+ * Common error handling:
+ * - Every handler catches unexpected errors.
+ * - If something fails, the controller returns a generic server error object.
+ *
+ * Note:
+ * - Most handlers are thin wrappers around productService methods.
+ * - This keeps business logic in the service layer and controller logic simple.
+ */
 
 let createNewProduct = async (req, res) => {
     try {
@@ -13,6 +30,8 @@ let createNewProduct = async (req, res) => {
         })
     }
 }
+
+// Return product list for admin screens.
 let getAllProductAdmin = async (req, res) => {
     try {
         let data = await productService.getAllProductAdmin(req.query);
@@ -25,6 +44,8 @@ let getAllProductAdmin = async (req, res) => {
         })
     }
 }
+
+// Return product list for public/user screens.
 let getAllProductUser = async (req, res) => {
     try {
         let data = await productService.getAllProductUser(req.query);
@@ -37,6 +58,8 @@ let getAllProductUser = async (req, res) => {
         })
     }
 }
+
+// Mark a product as inactive.
 let UnactiveProduct = async (req, res) => {
     try {
         let data = await productService.UnactiveProduct(req.body);
@@ -49,6 +72,8 @@ let UnactiveProduct = async (req, res) => {
         })
     }
 }
+
+// Mark a product as active.
 let ActiveProduct = async (req, res) => {
     try {
         let data = await productService.ActiveProduct(req.body);
@@ -61,6 +86,8 @@ let ActiveProduct = async (req, res) => {
         })
     }
 }
+
+// Get product detail information by product id.
 let getDetailProductById = async (req, res) => {
     try {
         let data = await productService.getDetailProductById(req.query.id);
@@ -73,6 +100,8 @@ let getDetailProductById = async (req, res) => {
         })
     }
 }
+
+// Update product master data.
 let updateProduct = async (req, res) => {
     try {
         let data = await productService.updateProduct(req.body);
@@ -85,6 +114,8 @@ let updateProduct = async (req, res) => {
         })
     }
 }
+
+// Get all product detail records by product id.
 let getAllProductDetailById = async (req, res) => {
     try {
         let data = await productService.getAllProductDetailById(req.query);
@@ -97,6 +128,8 @@ let getAllProductDetailById = async (req, res) => {
         })
     }
 }
+
+// Get all product images for a specific product detail.
 let getAllProductDetailImageById = async (req, res) => {
     try {
         let data = await productService.getAllProductDetailImageById(req.query);
@@ -109,6 +142,8 @@ let getAllProductDetailImageById = async (req, res) => {
         })
     }
 }
+
+// Create a new product detail record.
 let createNewProductDetail = async (req, res) => {
     try {
         let data = await productService.createNewProductDetail(req.body);
@@ -121,6 +156,8 @@ let createNewProductDetail = async (req, res) => {
         })
     }
 }
+
+// Update product detail data.
 let updateProductDetail = async (req, res) => {
     try {
         let data = await productService.updateProductDetail(req.body);
@@ -133,6 +170,8 @@ let updateProductDetail = async (req, res) => {
         })
     }
 }
+
+// Get one product detail record by id.
 let getDetailProductDetailById = async (req, res) => {
     try {
         let data = await productService.getDetailProductDetailById(req.query.id);
@@ -145,6 +184,8 @@ let getDetailProductDetailById = async (req, res) => {
         })
     }
 }
+
+// Create a new image record for a product detail.
 let createNewProductDetailImage = async (req, res) => {
     try {
         let data = await productService.createNewProductDetailImage(req.body);
@@ -157,6 +198,8 @@ let createNewProductDetailImage = async (req, res) => {
         })
     }
 }
+
+// Get one product image record by id.
 let getDetailProductImageById = async (req, res) => {
     try {
         let data = await productService.getDetailProductImageById(req.query.id);
@@ -169,6 +212,8 @@ let getDetailProductImageById = async (req, res) => {
         })
     }
 }
+
+// Update one product image record.
 let updateProductDetailImage = async (req, res) => {
     try {
         let data = await productService.updateProductDetailImage(req.body);
@@ -181,6 +226,8 @@ let updateProductDetailImage = async (req, res) => {
         })
     }
 }
+
+// Delete one product image record.
 let deleteProductDetailImage = async (req, res) => {
     try {
         let data = await productService.deleteProductDetailImage(req.body);
@@ -193,6 +240,8 @@ let deleteProductDetailImage = async (req, res) => {
         })
     }
 }
+
+// Delete one product detail record.
 let deleteProductDetail = async (req, res) => {
     try {
         let data = await productService.deleteProductDetail(req.body);
@@ -205,6 +254,8 @@ let deleteProductDetail = async (req, res) => {
         })
     }
 }
+
+// Get all size records for a product detail.
 let getAllProductDetailSizeById = async (req, res) => {
     try {
         let data = await productService.getAllProductDetailSizeById(req.query);
@@ -217,6 +268,8 @@ let getAllProductDetailSizeById = async (req, res) => {
         })
     }
 }
+
+// Create a new size record for a product detail.
 let createNewProductDetailSize = async (req, res) => {
     try {
         let data = await productService.createNewProductDetailSize(req.body);
@@ -229,6 +282,8 @@ let createNewProductDetailSize = async (req, res) => {
         })
     }
 }
+
+// Get one product detail size record by id.
 let getDetailProductDetailSizeById = async (req, res) => {
     try {
         let data = await productService.getDetailProductDetailSizeById(req.query.id);
@@ -241,6 +296,8 @@ let getDetailProductDetailSizeById = async (req, res) => {
         })
     }
 }
+
+// Update a product detail size record.
 let updateProductDetailSize = async (req, res) => {
     try {
         let data = await productService.updateProductDetailSize(req.body);
@@ -253,6 +310,8 @@ let updateProductDetailSize = async (req, res) => {
         })
     }
 }
+
+// Delete a product detail size record.
 let deleteProductDetailSize = async (req, res) => {
     try {
         let data = await productService.deleteProductDetailSize(req.body);
@@ -265,6 +324,8 @@ let deleteProductDetailSize = async (req, res) => {
         })
     }
 }
+
+// Return featured products using the requested limit.
 let getProductFeature = async (req, res) => {
     try {
         let data = await productService.getProductFeature(req.query.limit);
@@ -277,6 +338,8 @@ let getProductFeature = async (req, res) => {
         })
     }
 }
+
+// Return newest products using the requested limit.
 let getProductNew = async (req, res) => {
     try {
         let data = await productService.getProductNew(req.query.limit);
@@ -289,6 +352,8 @@ let getProductNew = async (req, res) => {
         })
     }
 }
+
+// Return product data for shopping cart preview.
 let getProductShopCart = async (req, res) => {
     try {
         let data = await productService.getProductShopCart(req.query);
@@ -301,6 +366,8 @@ let getProductShopCart = async (req, res) => {
         })
     }
 }
+
+// Return product recommendations for the current user context.
 let getProductRecommend = async (req, res) => {
     try {
         let data = await productService.getProductRecommend(req.query);
