@@ -5,6 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "jest",
+    "test:coverage": "jest --coverage",
     "start": "nodemon --exec ./node_modules/.bin/babel-node src/server.js"
   },
   "keywords": [
@@ -47,5 +48,28 @@
     "jest": "^30.0.5",
     "nodemon": "^3.1.11",
     "sequelize-cli": "^6.6.2"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/controllers/**/*.js",
+      "src/services/**/*.js",
+      "!src/**/index.js",
+      "!src/server.js"
+    ],
+    "coverageDirectory": "coverage",
+    "coverageReporters": [
+      "text",
+      "lcov",
+      "html",
+      "clover"
+    ],
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "/src/models/",
+      "/src/migrations/",
+      "/src/views/",
+      "/src/config/",
+      "/src/route/"
+    ]
   }
 }
