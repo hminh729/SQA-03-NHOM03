@@ -1,5 +1,5 @@
 // Unit tests for allcodeController.
-// Each test has an explicit TC_XXX comment to match the teacher requirement.
+// Each test has an explicit TC_allcode_XXX comment to match the teacher requirement.
 
 const mockAllcodeService = {
   handleCreateNewAllCode: jest.fn(),
@@ -37,8 +37,8 @@ describe('allcodeController', () => {
     consoleSpy.mockRestore();
   });
 
-  // TC_001: Kiểm tra tạo allcode thành công.
-  test('TC_001 - handleCreateNewAllCode should return service data', async () => {
+  // TC_allcode_001: Kiểm tra tạo allcode thành công.
+  test('TC_allcode_001 - handleCreateNewAllCode should return service data', async () => {
     const req = {
       body: {
         type: 'STATUS',
@@ -57,8 +57,8 @@ describe('allcodeController', () => {
     expect(res.json).toHaveBeenCalledWith(serviceResult);
   });
 
-  // TC_002: Kiểm tra tạo allcode khi thiếu tham số bắt buộc.
-  test('TC_002 - handleCreateNewAllCode should pass through missing parameter response', async () => {
+  // TC_allcode_002: Kiểm tra tạo allcode khi thiếu tham số bắt buộc.
+  test('TC_allcode_002 - handleCreateNewAllCode should pass through missing parameter response', async () => {
     const req = { body: { type: 'STATUS' } };
     const res = createMockRes();
     const serviceResult = {
@@ -74,8 +74,8 @@ describe('allcodeController', () => {
     expect(res.json).toHaveBeenCalledWith(serviceResult);
   });
 
-  // TC_003: Kiểm tra lấy allcode theo type thành công.
-  test('TC_003 - getAllCodeService should return service data', async () => {
+  // TC_allcode_003: Kiểm tra lấy allcode theo type thành công.
+  test('TC_allcode_003 - getAllCodeService should return service data', async () => {
     const req = { query: { type: 'STATUS' } };
     const res = createMockRes();
     const serviceResult = { errCode: 0, data: [{ id: 1 }] };
@@ -88,8 +88,8 @@ describe('allcodeController', () => {
     expect(res.json).toHaveBeenCalledWith(serviceResult);
   });
 
-  // TC_004: Kiểm tra lấy allcode theo type khi thiếu type.
-  test('TC_004 - getAllCodeService should pass through missing parameter response', async () => {
+  // TC_allcode_004: Kiểm tra lấy allcode theo type khi thiếu type.
+  test('TC_allcode_004 - getAllCodeService should pass through missing parameter response', async () => {
     const req = { query: {} };
     const res = createMockRes();
     const serviceResult = {
@@ -105,8 +105,8 @@ describe('allcodeController', () => {
     expect(res.json).toHaveBeenCalledWith(serviceResult);
   });
 
-  // TC_005: Kiểm tra lấy danh mục blog thành công.
-  test('TC_005 - getAllCategoryBlog should return service data', async () => {
+  // TC_allcode_005: Kiểm tra lấy danh mục blog thành công.
+  test('TC_allcode_005 - getAllCategoryBlog should return service data', async () => {
     const req = { query: { type: 'BLOG_CATEGORY' } };
     const res = createMockRes();
     const serviceResult = { errCode: 0, data: [{ code: 'CAT1', countPost: 2 }] };
@@ -119,8 +119,8 @@ describe('allcodeController', () => {
     expect(res.json).toHaveBeenCalledWith(serviceResult);
   });
 
-  // TC_006: Kiểm tra lấy danh mục blog khi thiếu type.
-  test('TC_006 - getAllCategoryBlog should pass through missing parameter response', async () => {
+  // TC_allcode_006: Kiểm tra lấy danh mục blog khi thiếu type.
+  test('TC_allcode_006 - getAllCategoryBlog should pass through missing parameter response', async () => {
     const req = { query: {} };
     const res = createMockRes();
     const serviceResult = {
@@ -136,8 +136,8 @@ describe('allcodeController', () => {
     expect(res.json).toHaveBeenCalledWith(serviceResult);
   });
 
-  // TC_007: Kiểm tra cập nhật allcode thành công.
-  test('TC_007 - handleUpdateAllCode should return service data', async () => {
+  // TC_allcode_007: Kiểm tra cập nhật allcode thành công.
+  test('TC_allcode_007 - handleUpdateAllCode should return service data', async () => {
     const req = {
       body: {
         id: 1,
@@ -156,8 +156,8 @@ describe('allcodeController', () => {
     expect(res.json).toHaveBeenCalledWith(serviceResult);
   });
 
-  // TC_008: Kiểm tra cập nhật allcode khi thiếu tham số bắt buộc.
-  test('TC_008 - handleUpdateAllCode should pass through missing parameter response', async () => {
+  // TC_allcode_008: Kiểm tra cập nhật allcode khi thiếu tham số bắt buộc.
+  test('TC_allcode_008 - handleUpdateAllCode should pass through missing parameter response', async () => {
     const req = { body: { id: 1, value: 'Inactive' } };
     const res = createMockRes();
     const serviceResult = {
@@ -173,8 +173,8 @@ describe('allcodeController', () => {
     expect(res.json).toHaveBeenCalledWith(serviceResult);
   });
 
-  // TC_009: Kiểm tra lấy chi tiết allcode theo id thành công.
-  test('TC_009 - getDetailAllCodeById should return service data', async () => {
+  // TC_allcode_009: Kiểm tra lấy chi tiết allcode theo id thành công.
+  test('TC_allcode_009 - getDetailAllCodeById should return service data', async () => {
     const req = { query: { id: 10 } };
     const res = createMockRes();
     const serviceResult = { errCode: 0, data: { id: 10 } };
@@ -187,8 +187,8 @@ describe('allcodeController', () => {
     expect(res.json).toHaveBeenCalledWith(serviceResult);
   });
 
-  // TC_010: Kiểm tra lấy chi tiết allcode khi thiếu id.
-  test('TC_010 - getDetailAllCodeById should pass through missing parameter response', async () => {
+  // TC_allcode_010: Kiểm tra lấy chi tiết allcode khi thiếu id.
+  test('TC_allcode_010 - getDetailAllCodeById should pass through missing parameter response', async () => {
     const req = { query: {} };
     const res = createMockRes();
     const serviceResult = {
@@ -204,8 +204,8 @@ describe('allcodeController', () => {
     expect(res.json).toHaveBeenCalledWith(serviceResult);
   });
 
-  // TC_011: Kiểm tra xóa allcode thành công.
-  test('TC_011 - handleDeleteAllCode should return service data', async () => {
+  // TC_allcode_011: Kiểm tra xóa allcode thành công.
+  test('TC_allcode_011 - handleDeleteAllCode should return service data', async () => {
     const req = { body: { id: 3 } };
     const res = createMockRes();
     const serviceResult = { errCode: 0, message: 'The allCode is deleted' };
@@ -218,8 +218,8 @@ describe('allcodeController', () => {
     expect(res.json).toHaveBeenCalledWith(serviceResult);
   });
 
-  // TC_012: Kiểm tra xóa allcode khi thiếu id.
-  test('TC_012 - handleDeleteAllCode should pass through missing parameter response', async () => {
+  // TC_allcode_012: Kiểm tra xóa allcode khi thiếu id.
+  test('TC_allcode_012 - handleDeleteAllCode should pass through missing parameter response', async () => {
     const req = { body: {} };
     const res = createMockRes();
     const serviceResult = {
@@ -235,8 +235,8 @@ describe('allcodeController', () => {
     expect(res.json).toHaveBeenCalledWith(serviceResult);
   });
 
-  // TC_013: Kiểm tra lấy danh sách allcode có phân trang và keyword thành công.
-  test('TC_013 - getListAllCodeService should return service data', async () => {
+  // TC_allcode_013: Kiểm tra lấy danh sách allcode có phân trang và keyword thành công.
+  test('TC_allcode_013 - getListAllCodeService should return service data', async () => {
     const req = { query: { type: 'STATUS', limit: 10, offset: 0, keyword: 'Act' } };
     const res = createMockRes();
     const serviceResult = { errCode: 0, data: [{ id: 1 }], count: 1 };
@@ -249,8 +249,8 @@ describe('allcodeController', () => {
     expect(res.json).toHaveBeenCalledWith(serviceResult);
   });
 
-  // TC_014: Kiểm tra controller trả lỗi server khi service throw exception.
-  test('TC_014 - handleCreateNewAllCode should return generic server error on exception', async () => {
+  // TC_allcode_014: Kiểm tra controller trả lỗi server khi service throw exception.
+  test('TC_allcode_014 - handleCreateNewAllCode should return generic server error on exception', async () => {
     const req = { body: { type: 'STATUS', value: 'Active', code: 'S1' } };
     const res = createMockRes();
     mockAllcodeService.handleCreateNewAllCode.mockRejectedValue(new Error('boom'));

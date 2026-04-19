@@ -1,5 +1,5 @@
 // Unit tests for interactionController.
-// Each test has an explicit TC_XXX comment to match the teacher requirement.
+// Each test has an explicit TC_interaction_XXX comment to match the teacher requirement.
 
 const mockInteractionService = {
   logInteraction: jest.fn(),
@@ -36,8 +36,8 @@ describe('interactionController', () => {
     jest.clearAllMocks();
   });
 
-  // TC_001: Kiểm tra log interaction thành công và gọi cập nhật recommendation.
-  test('TC_001 - logInteractionController should return data and call recommendation update', async () => {
+  // TC_interaction_001: Kiểm tra log interaction thành công và gọi cập nhật recommendation.
+  test('TC_interaction_001 - logInteractionController should return data and call recommendation update', async () => {
     const req = {
       body: {
         userId: 1,
@@ -60,8 +60,8 @@ describe('interactionController', () => {
     expect(res.json).toHaveBeenCalledWith({ success: true, data: record });
   });
 
-  // TC_002: Kiểm tra log interaction vẫn thành công khi recommendation lỗi (non-blocking).
-  test('TC_002 - logInteractionController should ignore recommendation error and still return success', async () => {
+  // TC_interaction_002: Kiểm tra log interaction vẫn thành công khi recommendation lỗi (non-blocking).
+  test('TC_interaction_002 - logInteractionController should ignore recommendation error and still return success', async () => {
     const req = {
       body: { userId: 2, productId: 20, actionCode: 'LIKE', device: 'desktop' },
     };
@@ -79,8 +79,8 @@ describe('interactionController', () => {
     expect(res.json).toHaveBeenCalledWith({ success: true, data: record });
   });
 
-  // TC_003: Kiểm tra log interaction trả lỗi 500 khi service throw.
-  test('TC_003 - logInteractionController should return 500 on service exception', async () => {
+  // TC_interaction_003: Kiểm tra log interaction trả lỗi 500 khi service throw.
+  test('TC_interaction_003 - logInteractionController should return 500 on service exception', async () => {
     const req = {
       body: { userId: 1, productId: 10, actionCode: 'VIEW', device: 'mobile' },
     };
@@ -95,8 +95,8 @@ describe('interactionController', () => {
     expect(res.json).toHaveBeenCalledWith({ success: false, message: 'bad request' });
   });
 
-  // TC_004: Kiểm tra lấy interaction theo user với action filter thành công.
-  test('TC_004 - getUserInteractionsController should return filtered interactions', async () => {
+  // TC_interaction_004: Kiểm tra lấy interaction theo user với action filter thành công.
+  test('TC_interaction_004 - getUserInteractionsController should return filtered interactions', async () => {
     const req = {
       params: { userId: '1' },
       query: { action: 'VIEW' },
@@ -113,8 +113,8 @@ describe('interactionController', () => {
     expect(res.json).toHaveBeenCalledWith({ success: true, data: interactions });
   });
 
-  // TC_005: Kiểm tra lấy interaction theo user khi không có action filter (edge case).
-  test('TC_005 - getUserInteractionsController should pass null action when query.action is missing', async () => {
+  // TC_interaction_005: Kiểm tra lấy interaction theo user khi không có action filter (edge case).
+  test('TC_interaction_005 - getUserInteractionsController should pass null action when query.action is missing', async () => {
     const req = {
       params: { userId: '2' },
       query: {},
@@ -131,8 +131,8 @@ describe('interactionController', () => {
     expect(res.json).toHaveBeenCalledWith({ success: true, data: interactions });
   });
 
-  // TC_006: Kiểm tra getUserInteractionsController trả lỗi 500 khi service throw.
-  test('TC_006 - getUserInteractionsController should return 500 on service exception', async () => {
+  // TC_interaction_006: Kiểm tra getUserInteractionsController trả lỗi 500 khi service throw.
+  test('TC_interaction_006 - getUserInteractionsController should return 500 on service exception', async () => {
     const req = {
       params: { userId: '3' },
       query: { action: 'BUY' },
@@ -147,8 +147,8 @@ describe('interactionController', () => {
     expect(res.json).toHaveBeenCalledWith({ success: false, message: 'db error' });
   });
 
-  // TC_007: Kiểm tra lấy toàn bộ interaction với action filter thành công.
-  test('TC_007 - getAllInteractionsController should return filtered interactions', async () => {
+  // TC_interaction_007: Kiểm tra lấy toàn bộ interaction với action filter thành công.
+  test('TC_interaction_007 - getAllInteractionsController should return filtered interactions', async () => {
     const req = { query: { action: 'CART' } };
     const res = createMockRes();
     const interactions = [{ id: 11 }];
@@ -162,8 +162,8 @@ describe('interactionController', () => {
     expect(res.json).toHaveBeenCalledWith({ success: true, data: interactions });
   });
 
-  // TC_008: Kiểm tra lấy toàn bộ interaction khi không có action filter (edge case).
-  test('TC_008 - getAllInteractionsController should pass null action when query.action is missing', async () => {
+  // TC_interaction_008: Kiểm tra lấy toàn bộ interaction khi không có action filter (edge case).
+  test('TC_interaction_008 - getAllInteractionsController should pass null action when query.action is missing', async () => {
     const req = { query: {} };
     const res = createMockRes();
     const interactions = [{ id: 12 }];
@@ -177,8 +177,8 @@ describe('interactionController', () => {
     expect(res.json).toHaveBeenCalledWith({ success: true, data: interactions });
   });
 
-  // TC_009: Kiểm tra getAllInteractionsController trả lỗi 500 khi service throw.
-  test('TC_009 - getAllInteractionsController should return 500 on service exception', async () => {
+  // TC_interaction_009: Kiểm tra getAllInteractionsController trả lỗi 500 khi service throw.
+  test('TC_interaction_009 - getAllInteractionsController should return 500 on service exception', async () => {
     const req = { query: { action: 'VIEW' } };
     const res = createMockRes();
 
@@ -190,8 +190,8 @@ describe('interactionController', () => {
     expect(res.json).toHaveBeenCalledWith({ success: false, message: 'server down' });
   });
 
-  // TC_010: Kiểm tra xóa interaction thành công.
-  test('TC_010 - deleteInteractionController should return success message', async () => {
+  // TC_interaction_010: Kiểm tra xóa interaction thành công.
+  test('TC_interaction_010 - deleteInteractionController should return success message', async () => {
     const req = { body: { userId: 9, productId: 90 } };
     const res = createMockRes();
 
@@ -204,8 +204,8 @@ describe('interactionController', () => {
     expect(res.json).toHaveBeenCalledWith({ success: true, message: 'Interaction deleted' });
   });
 
-  // TC_011: Kiểm tra deleteInteractionController trả lỗi 500 khi service throw.
-  test('TC_011 - deleteInteractionController should return 500 on service exception', async () => {
+  // TC_interaction_011: Kiểm tra deleteInteractionController trả lỗi 500 khi service throw.
+  test('TC_interaction_011 - deleteInteractionController should return 500 on service exception', async () => {
     const req = { body: { userId: 9, productId: 91 } };
     const res = createMockRes();
 

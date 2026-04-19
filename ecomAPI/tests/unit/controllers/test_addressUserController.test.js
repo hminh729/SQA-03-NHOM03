@@ -35,8 +35,8 @@ describe('addressUserController', () => {
     consoleSpy.mockRestore();
   });
 
-  // TC_001: Kiểm tra tạo địa chỉ người dùng thành công.
-  test('TC_001 - createNewAddressUser should return service data', async () => {
+  // TC_addressUser_001: Kiểm tra tạo địa chỉ người dùng thành công.
+  test('TC_addressUser_001 - createNewAddressUser should return service data', async () => {
     const req = {
       body: {
         userId: 1,
@@ -57,8 +57,8 @@ describe('addressUserController', () => {
     expect(res.json).toHaveBeenCalledWith(serviceResult);
   });
 
-  // TC_002: Kiểm tra tạo địa chỉ người dùng khi service báo thiếu tham số.
-  test('TC_002 - createNewAddressUser should pass through validation response', async () => {
+  // TC_addressUser_002: Kiểm tra tạo địa chỉ người dùng khi service báo thiếu tham số.
+  test('TC_addressUser_002 - createNewAddressUser should pass through validation response', async () => {
     const req = { body: { shipName: 'Nguyen Van A' } };
     const res = createMockRes();
     const serviceResult = {
@@ -74,8 +74,8 @@ describe('addressUserController', () => {
     expect(res.json).toHaveBeenCalledWith(serviceResult);
   });
 
-  // TC_003: Kiểm tra lấy danh sách địa chỉ theo userId thành công.
-  test('TC_003 - getAllAddressUserByUserId should return service data', async () => {
+  // TC_addressUser_003: Kiểm tra lấy danh sách địa chỉ theo userId thành công.
+  test('TC_addressUser_003 - getAllAddressUserByUserId should return service data', async () => {
     const req = { query: { userId: 7 } };
     const res = createMockRes();
     const serviceResult = { errCode: 0, data: [{ id: 1 }] };
@@ -88,8 +88,8 @@ describe('addressUserController', () => {
     expect(res.json).toHaveBeenCalledWith(serviceResult);
   });
 
-  // TC_004: Kiểm tra lấy danh sách địa chỉ khi thiếu userId.
-  test('TC_004 - getAllAddressUserByUserId should pass through missing parameter response', async () => {
+  // TC_addressUser_004: Kiểm tra lấy danh sách địa chỉ khi thiếu userId.
+  test('TC_addressUser_004 - getAllAddressUserByUserId should pass through missing parameter response', async () => {
     const req = { query: {} };
     const res = createMockRes();
     const serviceResult = {
@@ -105,8 +105,8 @@ describe('addressUserController', () => {
     expect(res.json).toHaveBeenCalledWith(serviceResult);
   });
 
-  // TC_005: Kiểm tra xóa địa chỉ người dùng thành công.
-  test('TC_005 - deleteAddressUser should return service data', async () => {
+  // TC_addressUser_005: Kiểm tra xóa địa chỉ người dùng thành công.
+  test('TC_addressUser_005 - deleteAddressUser should return service data', async () => {
     const req = { body: { id: 10 } };
     const res = createMockRes();
     const serviceResult = { errCode: 0, errMessage: 'ok' };
@@ -119,8 +119,8 @@ describe('addressUserController', () => {
     expect(res.json).toHaveBeenCalledWith(serviceResult);
   });
 
-  // TC_006: Kiểm tra xóa địa chỉ người dùng khi service báo không tìm thấy.
-  test('TC_006 - deleteAddressUser should pass through not found response', async () => {
+  // TC_addressUser_006: Kiểm tra xóa địa chỉ người dùng khi service báo không tìm thấy.
+  test('TC_addressUser_006 - deleteAddressUser should pass through not found response', async () => {
     const req = { body: { id: 999 } };
     const res = createMockRes();
     const serviceResult = {
@@ -136,8 +136,8 @@ describe('addressUserController', () => {
     expect(res.json).toHaveBeenCalledWith(serviceResult);
   });
 
-  // TC_007: Kiểm tra cập nhật địa chỉ người dùng thành công.
-  test('TC_007 - editAddressUser should return service data', async () => {
+  // TC_addressUser_007: Kiểm tra cập nhật địa chỉ người dùng thành công.
+  test('TC_addressUser_007 - editAddressUser should return service data', async () => {
     const req = {
       body: {
         id: 1,
@@ -158,8 +158,8 @@ describe('addressUserController', () => {
     expect(res.json).toHaveBeenCalledWith(serviceResult);
   });
 
-  // TC_008: Kiểm tra cập nhật địa chỉ người dùng khi thiếu tham số bắt buộc.
-  test('TC_008 - editAddressUser should pass through missing parameter response', async () => {
+  // TC_addressUser_008: Kiểm tra cập nhật địa chỉ người dùng khi thiếu tham số bắt buộc.
+  test('TC_addressUser_008 - editAddressUser should pass through missing parameter response', async () => {
     const req = { body: { id: 1, shipName: 'Nguyen Van B' } };
     const res = createMockRes();
     const serviceResult = {
@@ -175,8 +175,8 @@ describe('addressUserController', () => {
     expect(res.json).toHaveBeenCalledWith(serviceResult);
   });
 
-  // TC_009: Kiểm tra lấy chi tiết địa chỉ người dùng thành công.
-  test('TC_009 - getDetailAddressUserById should return service data', async () => {
+  // TC_addressUser_009: Kiểm tra lấy chi tiết địa chỉ người dùng thành công.
+  test('TC_addressUser_009 - getDetailAddressUserById should return service data', async () => {
     const req = { query: { id: 5 } };
     const res = createMockRes();
     const serviceResult = { errCode: 0, data: { id: 5 } };
@@ -189,8 +189,8 @@ describe('addressUserController', () => {
     expect(res.json).toHaveBeenCalledWith(serviceResult);
   });
 
-  // TC_010: Kiểm tra lấy chi tiết địa chỉ người dùng khi thiếu id.
-  test('TC_010 - getDetailAddressUserById should pass through missing parameter response', async () => {
+  // TC_addressUser_010: Kiểm tra lấy chi tiết địa chỉ người dùng khi thiếu id.
+  test('TC_addressUser_010 - getDetailAddressUserById should pass through missing parameter response', async () => {
     const req = { query: {} };
     const res = createMockRes();
     const serviceResult = {
@@ -206,8 +206,8 @@ describe('addressUserController', () => {
     expect(res.json).toHaveBeenCalledWith(serviceResult);
   });
 
-  // TC_011: Kiểm tra controller trả lỗi server khi service throw exception.
-  test('TC_011 - createNewAddressUser should return generic server error on exception', async () => {
+  // TC_addressUser_011: Kiểm tra controller trả lỗi server khi service throw exception.
+  test('TC_addressUser_011 - createNewAddressUser should return generic server error on exception', async () => {
     const req = { body: { userId: 1 } };
     const res = createMockRes();
     mockAddressUserService.createNewAddressUser.mockRejectedValue(new Error('boom'));
