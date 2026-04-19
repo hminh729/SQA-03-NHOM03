@@ -1,6 +1,20 @@
 import * as interactionService from "../services/interactionService.js";
 import recommendationService from "../services/recommendationService";
 
+/**
+ * Interaction controller layer.
+ *
+ * Purpose:
+ * - Receive interaction-related HTTP requests.
+ * - Delegate business logic to interactionService.
+ * - Return consistent JSON payloads to clients.
+ *
+ * Edge/error behavior:
+ * - Recommendation refresh in log endpoint is intentionally non-blocking.
+ * - Any service exception is returned as HTTP 500 with error message.
+ */
+
+// Create a new interaction record and trigger real-time recommendation refresh.
 export async function logInteractionController(req, res) {
     try {
         const { userId, productId, actionCode, device } = req.body;
@@ -18,7 +32,7 @@ export async function logInteractionController(req, res) {
     }
 }
 
-// getUserInteractionsController
+// Return interactions of one user, optionally filtered by action code.
 export async function getUserInteractionsController(req, res) {
     try {
         const userId = req.params.userId;
@@ -32,7 +46,7 @@ export async function getUserInteractionsController(req, res) {
     }
 }
 
-// getAllInteractionsController
+// Return all interactions in the system, optionally filtered by action code.
 export async function getAllInteractionsController(req, res) {
     try {
         const actionCode = req.query.action || null;
@@ -45,6 +59,7 @@ export async function getAllInteractionsController(req, res) {
     }
 }
 
+// Delete one interaction by userId + productId pair.
 export async function deleteInteractionController(req, res) {
     try {
         const { userId, productId } = req.body;
