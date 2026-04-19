@@ -554,7 +554,6 @@ module.exports = {
     handleChangePassword: handleChangePassword,
     getAllUser: getAllUser,
     getDetailUserById: getDetailUserById,
-    getDetailUserByEmail: getDetailUserByEmail,
     handleSendVerifyEmailUser: handleSendVerifyEmailUser,
     handleVerifyEmailUser: handleVerifyEmailUser,
     handleSendEmailForgotPassword: handleSendEmailForgotPassword,
