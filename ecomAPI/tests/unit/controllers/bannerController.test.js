@@ -24,11 +24,11 @@
  * - Verify correct service calls and response handling
  */
 
-import bannerController from "../src/controllers/bannerController";
-import bannerService from "../src/services/bannerService";
+import bannerController from "../../../src/controllers/bannerController";
+import bannerService from "../../../src/services/bannerService";
 
 // Mock the service layer to isolate controller testing
-jest.mock("../src/services/bannerService");
+jest.mock("../../../src/services/bannerService");
 
 describe("=== BANNER CONTROLLER TEST SUITE ===", () => {
   /**

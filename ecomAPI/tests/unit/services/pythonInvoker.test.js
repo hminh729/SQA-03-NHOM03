@@ -4,7 +4,7 @@
  * Module: ecomAPI/src/services/pythonInvoker.js
  */
 
-import pythonInvoker from "../src/services/pythonInvoker";
+import pythonInvoker from "../../../src/services/pythonInvoker";
 import { spawn } from "child_process";
 import { EventEmitter } from "events";
 
@@ -53,7 +53,9 @@ describe("=== PYTHON INVOKER TEST SUITE ===", () => {
 
     expect(result.ok).toBe(true);
     expect(result.items).toEqual([1, 2, 3]);
-    expect(mockProcess.stdin.write).toHaveBeenCalledWith(JSON.stringify(payload) + require('os').EOL);
+    expect(mockProcess.stdin.write).toHaveBeenCalledWith(
+      JSON.stringify(payload) + require("os").EOL,
+    );
   });
 
   test("runPythonInference failure case (exit code 1)", async () => {
@@ -92,12 +94,12 @@ describe("=== PYTHON INVOKER TEST SUITE ===", () => {
 
     expect(result.ok).toBe(false);
     expect(result.error).toBe("timeout");
-    
-    if (process.platform === 'win32') {
-       // On Windows it calls taskkill
-       expect(spawn).toHaveBeenCalledWith('taskkill', expect.anything());
+
+    if (process.platform === "win32") {
+      // On Windows it calls taskkill
+      expect(spawn).toHaveBeenCalledWith("taskkill", expect.anything());
     } else {
-       expect(mockProcess.kill).toHaveBeenCalledWith('SIGKILL');
+      expect(mockProcess.kill).toHaveBeenCalledWith("SIGKILL");
     }
   });
 

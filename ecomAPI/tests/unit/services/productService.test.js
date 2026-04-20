@@ -4,11 +4,11 @@
  * Module: ecomAPI/src/services/productService.js
  */
 
-import productService from "../src/services/productService";
-import db from "../src/models/index";
+import productService from "../../../src/services/productService";
+import db from "../../../src/models/index";
 
 // Mock the database models
-jest.mock("../src/models/index", () => ({
+jest.mock("../../../src/models/index", () => ({
   Sequelize: {
     Op: {
       substring: "substring",
@@ -72,7 +72,11 @@ jest.mock("../src/models/index", () => ({
   OrderDetail: { findAll: jest.fn() },
   OrderProduct: { findOne: jest.fn() },
   Comment: { findAll: jest.fn() },
-  Recommendation: { destroy: jest.fn(), bulkCreate: jest.fn(), findAll: jest.fn() },
+  Recommendation: {
+    destroy: jest.fn(),
+    bulkCreate: jest.fn(),
+    findAll: jest.fn(),
+  },
   ModelRun: { destroy: jest.fn(), bulkCreate: jest.fn() },
   Interaction: { findAll: jest.fn(), findOne: jest.fn() },
 }));
@@ -84,10 +88,18 @@ describe("=== PRODUCT SERVICE TEST SUITE ===", () => {
 
   describe("createNewProduct", () => {
     test("Should create product and details successfully", async () => {
-      const data = { 
-        categoryId: 1, brandId: 1, image: 'img', nameDetail: 'Detail',
-        name: 'Product', contentHTML: 'html', contentMarkdown: 'md',
-        madeby: 'VN', material: 'Cotton', originalPrice: 100, discountPrice: 80
+      const data = {
+        categoryId: 1,
+        brandId: 1,
+        image: "img",
+        nameDetail: "Detail",
+        name: "Product",
+        contentHTML: "html",
+        contentMarkdown: "md",
+        madeby: "VN",
+        material: "Cotton",
+        originalPrice: 100,
+        discountPrice: 80,
       };
       db.Product.create.mockResolvedValue({ id: 1 });
       db.ProductDetail.create.mockResolvedValue({ id: 10 });
@@ -101,36 +113,44 @@ describe("=== PRODUCT SERVICE TEST SUITE ===", () => {
     });
 
     test("Should return error if missing params", async () => {
-      const result = await productService.createNewProduct({ name: 'P' });
+      const result = await productService.createNewProduct({ name: "P" });
       expect(result.errCode).toBe(1);
     });
   });
 
   describe("getAllProductAdmin", () => {
     test("Should return all products for admin with image conversion", async () => {
-      const base64Image = Buffer.from('test').toString('base64');
+      const base64Image = Buffer.from("test").toString("base64");
       db.Product.findAndCountAll.mockResolvedValue({
-        rows: [{ id: 1, name: 'P1' }],
-        count: 1
+        rows: [{ id: 1, name: "P1" }],
+        count: 1,
       });
-      db.ProductDetail.findAll.mockResolvedValue([{ id: 10, discountPrice: 50 }]);
+      db.ProductDetail.findAll.mockResolvedValue([
+        { id: 10, discountPrice: 50 },
+      ]);
       db.ProductDetailSize.findAll.mockResolvedValue([{ id: 100 }]);
       db.ProductImage.findAll.mockResolvedValue([{ image: base64Image }]);
 
-      const result = await productService.getAllProductAdmin({ limit: 10, offset: 0, keyword: '' });
+      const result = await productService.getAllProductAdmin({
+        limit: 10,
+        offset: 0,
+        keyword: "",
+      });
       expect(result.errCode).toBe(0);
-      expect(result.data[0].productDetail[0].productImage[0].image).toBe('test');
+      expect(result.data[0].productDetail[0].productImage[0].image).toBe(
+        "test",
+      );
     });
   });
 
   describe("getDetailProductById", () => {
     test("Should return detailed product information", async () => {
-      const base64Image = Buffer.from('test').toString('base64');
-      const mockProductRes = { id: 1, name: 'P', view: 0 };
+      const base64Image = Buffer.from("test").toString("base64");
+      const mockProductRes = { id: 1, name: "P", view: 0 };
       const mockProduct = { ...mockProductRes, save: jest.fn() };
-      
+
       db.Product.findOne.mockResolvedValueOnce(mockProductRes); // for 'res'
-      db.Product.findOne.mockResolvedValueOnce(mockProduct);    // for 'product' to increment view
+      db.Product.findOne.mockResolvedValueOnce(mockProduct); // for 'product' to increment view
       db.ProductDetail.findAll.mockResolvedValue([{ id: 10 }]);
       db.ProductImage.findAll.mockResolvedValue([{ image: base64Image }]);
       db.ProductDetailSize.findAll.mockResolvedValue([{ id: 100 }]);
@@ -148,11 +168,11 @@ describe("=== PRODUCT SERVICE TEST SUITE ===", () => {
     test("Should update product data successfully", async () => {
       const mockProduct = { id: 1, save: jest.fn() };
       db.Product.findOne.mockResolvedValue(mockProduct);
-      const data = { id: 1, categoryId: 2, brandId: 2, name: 'New Name' };
-      
+      const data = { id: 1, categoryId: 2, brandId: 2, name: "New Name" };
+
       const result = await productService.updateProduct(data);
       expect(result.errCode).toBe(0);
-      expect(mockProduct.name).toBe('New Name');
+      expect(mockProduct.name).toBe("New Name");
       expect(mockProduct.save).toHaveBeenCalled();
     });
   });

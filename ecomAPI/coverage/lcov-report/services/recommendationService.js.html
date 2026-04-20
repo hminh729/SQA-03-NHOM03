@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">2.95% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/271</span>
+                <span class='fraction'>8/271</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">3.61% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/221</span>
+                <span class='fraction'>8/221</span>
             </div>
         
             
@@ -515,17 +515,17 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -899,7 +899,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -959,21 +959,21 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import db from "../models/index";
+<span class="cline-any cline-yes">1x</span></td><td class="text"><pre class="prettyprint lang-js">import db from "../models/index";
 import fs from "fs";
 import path from "path";
 import moment from "moment";
-const { Op } = <span class="cstat-no" title="statement not covered" >db.Sequelize;</span>
+const { Op } = db.Sequelize;
 &nbsp;
 // Optional Python inference bridge (default export)
-let pythonInvoker = <span class="cstat-no" title="statement not covered" >null;</span>
-<span class="cstat-no" title="statement not covered" >try {</span>
-<span class="cstat-no" title="statement not covered" >  pythonInvoker = require("./pythonInvoker.js").default;</span>
+let pythonInvoker = null;
+try {
+  pythonInvoker = require("./pythonInvoker.js").default;
 } catch (e) {
 <span class="cstat-no" title="statement not covered" >  pythonInvoker = null;</span>
 }
-const ROOT = <span class="cstat-no" title="statement not covered" >path.resolve(__dirname, "../../..");</span>
-const PERF_CSV = <span class="cstat-no" title="statement not covered" >path.join(ROOT, "processed_data", "model_performance.csv");</span>
+const ROOT = path.resolve(__dirname, "../../..");
+const PERF_CSV = path.join(ROOT, "processed_data", "model_performance.csv");
 &nbsp;
 function <span class="fstat-no" title="function not covered" >pickBestModel(</span>) {
 <span class="cstat-no" title="statement not covered" >  try {</span>
@@ -1347,7 +1347,7 @@ async function <span class="fstat-no" title="function not covered" >computeRecom
 }
 &nbsp;
 // In-process guard to prevent concurrent recomputations per user
-const _recomputeInProgress = <span class="cstat-no" title="statement not covered" >new Set();</span>
+const _recomputeInProgress = new Set();
 &nbsp;
 async function <span class="fstat-no" title="function not covered" >initForUser(</span>userId, limit=<span class="branch-0 cbranch-no" title="branch not covered" >10)</span> {
   // Early role gate: only allow users with roleId 'R2'
@@ -1407,14 +1407,14 @@ async function <span class="fstat-no" title="function not covered" >clearForUser
 <span class="cstat-no" title="statement not covered" >  return true;</span>
 }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >module.exports = { initForUser, getCachedForUser, clearForUser };</span></pre></td></tr></table></pre>
+module.exports = { initForUser, getCachedForUser, clearForUser };</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-04-19T16:20:15.707Z
+                at 2026-04-20T03:32:03.335Z
             </div>
         <script src="../prettify.js"></script>
         <script>

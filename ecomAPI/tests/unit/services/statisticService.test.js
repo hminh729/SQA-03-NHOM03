@@ -4,17 +4,17 @@
  * Module: ecomAPI/src/services/statisticService.js
  */
 
-import statisticService from "../src/services/statisticService";
-import db from "../src/models/index";
+import statisticService from "../../../src/services/statisticService";
+import db from "../../../src/models/index";
 import moment from "moment";
 
 // Mock the database models
-jest.mock("../src/models/index", () => ({
+jest.mock("../../../src/models/index", () => ({
   User: { count: jest.fn() },
   Product: { count: jest.fn(), findOne: jest.fn() },
   Comment: { count: jest.fn() },
-  OrderProduct: { 
-    count: jest.fn(), 
+  OrderProduct: {
+    count: jest.fn(),
     findAll: jest.fn(),
   },
   Allcode: { findAll: jest.fn() },
@@ -51,18 +51,18 @@ describe("=== STATISTIC SERVICE TEST SUITE ===", () => {
     });
 
     test("Should return order status counts by day", async () => {
-      const data = { 
-        oneDate: '2023-01-01', 
-        twoDate: '2023-01-05', 
-        type: 'day' 
+      const data = {
+        oneDate: "2023-01-01",
+        twoDate: "2023-01-05",
+        type: "day",
       };
       db.Allcode.findAll.mockResolvedValue([
-        { value: 'Delivered', code: 'S6' },
-        { value: 'Cancelled', code: 'S7' }
+        { value: "Delivered", code: "S6" },
+        { value: "Cancelled", code: "S7" },
       ]);
       db.OrderProduct.findAll.mockResolvedValue([
-        { statusId: 'S6', updatedAt: '2023-01-02' },
-        { statusId: 'S7', updatedAt: '2023-01-03' }
+        { statusId: "S6", updatedAt: "2023-01-02" },
+        { statusId: "S7", updatedAt: "2023-01-03" },
       ]);
 
       const result = await statisticService.getCountStatusOrder(data);
@@ -73,20 +73,20 @@ describe("=== STATISTIC SERVICE TEST SUITE ===", () => {
 
   describe("getStatisticByMonth", () => {
     test("Should return revenue by month", async () => {
-      const data = { year: '2023' };
+      const data = { year: "2023" };
       db.OrderProduct.findAll.mockResolvedValue([
-        { 
-          id: 1, 
-          statusId: 'S6', 
-          updatedAt: '2023-01-15', 
+        {
+          id: 1,
+          statusId: "S6",
+          updatedAt: "2023-01-15",
           typeShipId: 1,
           typeShipData: { price: 5 },
           voucherId: null,
-          voucherData: {}
-        }
+          voucherData: {},
+        },
       ]);
       db.OrderDetail.findAll.mockResolvedValue([
-        { orderId: 1, realPrice: 100, quantity: 2 }
+        { orderId: 1, realPrice: 100, quantity: 2 },
       ]);
       db.TypeVoucher.findOne.mockResolvedValue(null);
 
@@ -98,19 +98,19 @@ describe("=== STATISTIC SERVICE TEST SUITE ===", () => {
 
   describe("getStatisticByDay", () => {
     test("Should return revenue by day", async () => {
-      const data = { month: '1', year: '2023' };
+      const data = { month: "1", year: "2023" };
       db.OrderProduct.findAll.mockResolvedValue([
-        { 
-          id: 1, 
-          updatedAt: '2023-01-01', 
+        {
+          id: 1,
+          updatedAt: "2023-01-01",
           typeShipId: 1,
           typeShipData: { price: 5 },
           voucherId: null,
-          voucherData: {}
-        }
+          voucherData: {},
+        },
       ]);
       db.OrderDetail.findAll.mockResolvedValue([
-        { orderId: 1, realPrice: 50, quantity: 1 }
+        { orderId: 1, realPrice: 50, quantity: 1 },
       ]);
 
       const result = await statisticService.getStatisticByDay(data);
@@ -121,18 +121,23 @@ describe("=== STATISTIC SERVICE TEST SUITE ===", () => {
 
   describe("getStatisticProfit", () => {
     test("Should calculate profit correctly", async () => {
-      const data = { type: 'month', oneDate: '2023-01-01' };
+      const data = { type: "month", oneDate: "2023-01-01" };
       db.OrderProduct.findAll.mockResolvedValue([
-        { 
-          id: 1, 
-          updatedAt: '2023-01-10', 
+        {
+          id: 1,
+          updatedAt: "2023-01-10",
           typeShipData: { price: 10 },
           voucherId: null,
-          voucherData: { typeVoucherId: 1 }
-        }
+          voucherData: { typeVoucherId: 1 },
+        },
       ]);
-      db.OrderDetail.findAll.mockResolvedValue([{ orderId: 1, productId: 1, realPrice: 100, quantity: 1 }]);
-      db.TypeVoucher.findOne.mockResolvedValue({ typeVoucher: 'percent', value: 0 });
+      db.OrderDetail.findAll.mockResolvedValue([
+        { orderId: 1, productId: 1, realPrice: 100, quantity: 1 },
+      ]);
+      db.TypeVoucher.findOne.mockResolvedValue({
+        typeVoucher: "percent",
+        value: 0,
+      });
       db.ReceiptDetail.findAll.mockResolvedValue([{ quantity: 10, price: 60 }]);
 
       const result = await statisticService.getStatisticProfit(data);

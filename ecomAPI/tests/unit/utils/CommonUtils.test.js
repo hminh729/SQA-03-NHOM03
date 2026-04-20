@@ -1,16 +1,16 @@
-import CommonUtils from "../src/utils/CommonUtils";
-import JWT from 'jsonwebtoken';
+import CommonUtils from "../../../src/utils/CommonUtils";
+import JWT from "jsonwebtoken";
 
 describe("=== COMMON UTILS TEST SUITE ===", () => {
   const userId = 123;
-  const secret = process.env.JWT_SECRET || 'secret'; // Fallback if env not loaded in test
+  const secret = process.env.JWT_SECRET || "secret"; // Fallback if env not loaded in test
 
   test("encodeToken should return a valid JWT", () => {
     const token = CommonUtils.encodeToken(userId);
-    expect(typeof token).toBe('string');
-    
+    expect(typeof token).toBe("string");
+
     const decoded = JWT.decode(token);
-    expect(decoded.iss).toBe('Bi Ngo');
+    expect(decoded.iss).toBe("Bi Ngo");
     expect(decoded.sub).toBe(userId);
   });
 

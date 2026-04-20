@@ -4,11 +4,11 @@
  * Module: ecomAPI/src/services/addressUserService.js
  */
 
-import addressUserService from "../src/services/addressUserService";
-import db from "../src/models/index";
+import addressUserService from "../../../src/services/addressUserService";
+import db from "../../../src/models/index";
 
 // Mock the database models
-jest.mock("../src/models/index", () => ({
+jest.mock("../../../src/models/index", () => ({
   AddressUser: {
     create: jest.fn(),
     findAll: jest.fn(),
@@ -26,11 +26,17 @@ describe("=== ADDRESS USER SERVICE TEST SUITE ===", () => {
     test("Should return error if missing userId", async () => {
       const result = await addressUserService.createNewAddressUser({});
       expect(result.errCode).toBe(1);
-      expect(result.errMessage).toBe('Missing required parameter !');
+      expect(result.errMessage).toBe("Missing required parameter !");
     });
 
     test("Should create address successfully", async () => {
-      const data = { userId: 1, shipName: 'Test', shipAdress: 'Addr', shipEmail: 'e@e.com', shipPhonenumber: '123' };
+      const data = {
+        userId: 1,
+        shipName: "Test",
+        shipAdress: "Addr",
+        shipEmail: "e@e.com",
+        shipPhonenumber: "123",
+      };
       db.AddressUser.create.mockResolvedValue(data);
       const result = await addressUserService.createNewAddressUser(data);
       expect(db.AddressUser.create).toHaveBeenCalledWith(data);
@@ -47,7 +53,9 @@ describe("=== ADDRESS USER SERVICE TEST SUITE ===", () => {
     test("Should get all addresses for user", async () => {
       db.AddressUser.findAll.mockResolvedValue([{ id: 1 }]);
       const result = await addressUserService.getAllAddressUserByUserId(1);
-      expect(db.AddressUser.findAll).toHaveBeenCalledWith({ where: { userId: 1 } });
+      expect(db.AddressUser.findAll).toHaveBeenCalledWith({
+        where: { userId: 1 },
+      });
       expect(result.errCode).toBe(0);
       expect(result.data).toHaveLength(1);
     });
@@ -80,16 +88,22 @@ describe("=== ADDRESS USER SERVICE TEST SUITE ===", () => {
     });
 
     test("Should edit address successfully", async () => {
-      const mockAddress = { 
-        id: 1, 
-        save: jest.fn().mockResolvedValue(true) 
+      const mockAddress = {
+        id: 1,
+        save: jest.fn().mockResolvedValue(true),
       };
       db.AddressUser.findOne.mockResolvedValue(mockAddress);
-      
-      const data = { id: 1, shipName: 'N', shipAdress: 'A', shipEmail: 'E', shipPhonenumber: 'P' };
+
+      const data = {
+        id: 1,
+        shipName: "N",
+        shipAdress: "A",
+        shipEmail: "E",
+        shipPhonenumber: "P",
+      };
       const result = await addressUserService.editAddressUser(data);
-      
-      expect(mockAddress.shipName).toBe('N');
+
+      expect(mockAddress.shipName).toBe("N");
       expect(mockAddress.save).toHaveBeenCalled();
       expect(result.errCode).toBe(0);
     });

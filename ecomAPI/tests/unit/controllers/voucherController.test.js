@@ -5,11 +5,11 @@
  * Test Framework: Jest
  */
 
-import voucherController from "../src/controllers/voucherController";
-import voucherService from "../src/services/voucherService";
+import voucherController from "../../../src/controllers/voucherController";
+import voucherService from "../../../src/services/voucherService";
 
 // Mock the service layer
-jest.mock("../src/services/voucherService");
+jest.mock("../../../src/services/voucherService");
 
 describe("=== VOUCHER CONTROLLER TEST SUITE ===", () => {
   let mockRequest;
@@ -39,19 +39,31 @@ describe("=== VOUCHER CONTROLLER TEST SUITE ===", () => {
     test("createNewTypeVoucher error", async () => {
       voucherService.createNewTypeVoucher.mockRejectedValue(new Error());
       await voucherController.createNewTypeVoucher(mockRequest, mockResponse);
-      expect(mockResponse.json).toHaveBeenCalledWith({ errCode: -1, errMessage: 'Error from server' });
+      expect(mockResponse.json).toHaveBeenCalledWith({
+        errCode: -1,
+        errMessage: "Error from server",
+      });
     });
 
     test("getDetailTypeVoucherById success", async () => {
       mockRequest.query.id = 1;
-      voucherService.getDetailTypeVoucherById.mockResolvedValue({ errCode: 0, data: {} });
-      await voucherController.getDetailTypeVoucherById(mockRequest, mockResponse);
+      voucherService.getDetailTypeVoucherById.mockResolvedValue({
+        errCode: 0,
+        data: {},
+      });
+      await voucherController.getDetailTypeVoucherById(
+        mockRequest,
+        mockResponse,
+      );
       expect(voucherService.getDetailTypeVoucherById).toHaveBeenCalledWith(1);
       expect(mockResponse.json).toHaveBeenCalledWith({ errCode: 0, data: {} });
     });
 
     test("getAllTypeVoucher success", async () => {
-      voucherService.getAllTypeVoucher.mockResolvedValue({ errCode: 0, data: [] });
+      voucherService.getAllTypeVoucher.mockResolvedValue({
+        errCode: 0,
+        data: [],
+      });
       await voucherController.getAllTypeVoucher(mockRequest, mockResponse);
       expect(mockResponse.json).toHaveBeenCalledWith({ errCode: 0, data: [] });
     });
@@ -69,7 +81,10 @@ describe("=== VOUCHER CONTROLLER TEST SUITE ===", () => {
     });
 
     test("getSelectTypeVoucher success", async () => {
-      voucherService.getSelectTypeVoucher.mockResolvedValue({ errCode: 0, data: [] });
+      voucherService.getSelectTypeVoucher.mockResolvedValue({
+        errCode: 0,
+        data: [],
+      });
       await voucherController.getSelectTypeVoucher(mockRequest, mockResponse);
       expect(mockResponse.json).toHaveBeenCalledWith({ errCode: 0, data: [] });
     });
@@ -85,7 +100,10 @@ describe("=== VOUCHER CONTROLLER TEST SUITE ===", () => {
 
     test("getDetailVoucherById success", async () => {
       mockRequest.query.id = 1;
-      voucherService.getDetailVoucherById.mockResolvedValue({ errCode: 0, data: {} });
+      voucherService.getDetailVoucherById.mockResolvedValue({
+        errCode: 0,
+        data: {},
+      });
       await voucherController.getDetailVoucherById(mockRequest, mockResponse);
       expect(voucherService.getDetailVoucherById).toHaveBeenCalledWith(1);
       expect(mockResponse.json).toHaveBeenCalledWith({ errCode: 0, data: {} });
@@ -116,7 +134,10 @@ describe("=== VOUCHER CONTROLLER TEST SUITE ===", () => {
     });
 
     test("getAllVoucherByUserId success", async () => {
-      voucherService.getAllVoucherByUserId.mockResolvedValue({ errCode: 0, data: [] });
+      voucherService.getAllVoucherByUserId.mockResolvedValue({
+        errCode: 0,
+        data: [],
+      });
       await voucherController.getAllVoucherByUserId(mockRequest, mockResponse);
       expect(mockResponse.json).toHaveBeenCalledWith({ errCode: 0, data: [] });
     });

@@ -4,11 +4,11 @@
  * Module: ecomAPI/src/services/voucherService.js
  */
 
-import voucherService from "../src/services/voucherService";
-import db from "../src/models/index";
+import voucherService from "../../../src/services/voucherService";
+import db from "../../../src/models/index";
 
 // Mock the database models
-jest.mock("../src/models/index", () => ({
+jest.mock("../../../src/models/index", () => ({
   TypeVoucher: {
     create: jest.fn(),
     findAll: jest.fn(),
@@ -32,7 +32,7 @@ jest.mock("../src/models/index", () => ({
   Allcode: {
     findOne: jest.fn(),
     findAll: jest.fn(),
-  }
+  },
 }));
 
 describe("=== VOUCHER SERVICE TEST SUITE ===", () => {
@@ -43,7 +43,7 @@ describe("=== VOUCHER SERVICE TEST SUITE ===", () => {
   //==================TYPE VOUCHER====================//
   describe("Type Voucher Service", () => {
     test("createNewTypeVoucher success", async () => {
-      const data = { typeVoucher: 'P', value: 10, maxValue: 100, minValue: 50 };
+      const data = { typeVoucher: "P", value: 10, maxValue: 100, minValue: 50 };
       db.TypeVoucher.create.mockResolvedValue(data);
       const result = await voucherService.createNewTypeVoucher(data);
       expect(result.errCode).toBe(0);
@@ -64,7 +64,10 @@ describe("=== VOUCHER SERVICE TEST SUITE ===", () => {
 
     test("getAllTypeVoucher success", async () => {
       db.TypeVoucher.findAndCountAll.mockResolvedValue({ rows: [], count: 0 });
-      const result = await voucherService.getAllTypeVoucher({ limit: 10, offset: 0 });
+      const result = await voucherService.getAllTypeVoucher({
+        limit: 10,
+        offset: 0,
+      });
       expect(result.errCode).toBe(0);
       expect(db.TypeVoucher.findAndCountAll).toHaveBeenCalled();
     });
@@ -72,7 +75,13 @@ describe("=== VOUCHER SERVICE TEST SUITE ===", () => {
     test("updateTypeVoucher success", async () => {
       const mockTypeVoucher = { id: 1, save: jest.fn() };
       db.TypeVoucher.findOne.mockResolvedValue(mockTypeVoucher);
-      const data = { id: 1, typeVoucher: 'P', value: 20, maxValue: 200, minValue: 100 };
+      const data = {
+        id: 1,
+        typeVoucher: "P",
+        value: 20,
+        maxValue: 200,
+        minValue: 100,
+      };
       const result = await voucherService.updateTypeVoucher(data);
       expect(mockTypeVoucher.value).toBe(20);
       expect(mockTypeVoucher.save).toHaveBeenCalled();
@@ -90,7 +99,13 @@ describe("=== VOUCHER SERVICE TEST SUITE ===", () => {
   //=======================VOUCHER===================
   describe("Voucher Service", () => {
     test("createNewVoucher success", async () => {
-      const data = { fromDate: '2023-01-01', toDate: '2023-01-31', typeVoucherId: 1, amount: 100, codeVoucher: 'V10' };
+      const data = {
+        fromDate: "2023-01-01",
+        toDate: "2023-01-31",
+        typeVoucherId: 1,
+        amount: 100,
+        codeVoucher: "V10",
+      };
       db.Voucher.create.mockResolvedValue(data);
       const result = await voucherService.createNewVoucher(data);
       expect(result.errCode).toBe(0);
@@ -100,10 +115,13 @@ describe("=== VOUCHER SERVICE TEST SUITE ===", () => {
     test("getAllVoucher success", async () => {
       db.Voucher.findAndCountAll.mockResolvedValue({
         rows: [{ id: 1 }],
-        count: 1
+        count: 1,
       });
       db.VoucherUsed.findAll.mockResolvedValue([{ id: 10 }]);
-      const result = await voucherService.getAllVoucher({ limit: 10, offset: 0 });
+      const result = await voucherService.getAllVoucher({
+        limit: 10,
+        offset: 0,
+      });
       expect(result.errCode).toBe(0);
       expect(result.data[0].usedAmount).toBe(1);
     });
@@ -113,8 +131,11 @@ describe("=== VOUCHER SERVICE TEST SUITE ===", () => {
       db.VoucherUsed.create.mockResolvedValue({ voucherId: 1, userId: 1 });
       const mockVoucher = { id: 1, save: jest.fn() };
       db.Voucher.findOne.mockResolvedValue(mockVoucher);
-      
-      const result = await voucherService.saveUserVoucher({ voucherId: 1, userId: 1 });
+
+      const result = await voucherService.saveUserVoucher({
+        voucherId: 1,
+        userId: 1,
+      });
       expect(result.errCode).toBe(0);
       expect(db.VoucherUsed.create).toHaveBeenCalled();
     });
@@ -122,11 +143,11 @@ describe("=== VOUCHER SERVICE TEST SUITE ===", () => {
     test("getAllVoucherByUserId success", async () => {
       db.VoucherUsed.findAndCountAll.mockResolvedValue({
         rows: [{ id: 1, voucherId: 5 }],
-        count: 1
+        count: 1,
       });
       db.Voucher.findOne.mockResolvedValue({ id: 5 });
       db.VoucherUsed.findAll.mockResolvedValue([]);
-      
+
       const result = await voucherService.getAllVoucherByUserId({ id: 1 });
       expect(result.errCode).toBe(0);
       expect(result.data[0].voucherData.id).toBe(5);
