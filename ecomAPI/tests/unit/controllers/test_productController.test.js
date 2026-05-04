@@ -30,12 +30,12 @@ const mockProductService = {
   getProductRecommend: jest.fn(),
 };
 
-jest.mock('../../../src/services/productService', () => ({
+jest.mock('../../src/services/productService', () => ({
   __esModule: true,
   default: mockProductService,
 }));
 
-const productController = require('../../../src/controllers/productController');
+const productController = require('../../src/controllers/productController');
 
 const createMockRes = () => {
   const res = {};

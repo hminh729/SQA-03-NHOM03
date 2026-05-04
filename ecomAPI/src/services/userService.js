@@ -558,5 +558,6 @@ module.exports = {
     handleVerifyEmailUser: handleVerifyEmailUser,
     handleSendEmailForgotPassword: handleSendEmailForgotPassword,
     handleForgotPassword: handleForgotPassword,
-    checkPhonenumberEmail: checkPhonenumberEmail
+    checkPhonenumberEmail: checkPhonenumberEmail,
+    getDetailUserByEmail: getDetailUserByEmail
 }
